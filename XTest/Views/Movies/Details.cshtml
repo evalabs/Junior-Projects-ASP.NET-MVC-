@@ -1,0 +1,66 @@
+﻿@model JuniorProjectsTest.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="panel panel-default" style="margin-top: 20px">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="breadcrumb" style="margin: 0">
+                    <li>@Html.ActionLink("Список фильмов", "Index")</li>
+                    <li class="active">@Model.Title</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                @Html.ActionLink("Изменить", "Edit", new { id = Model.ID }, new { @class = "btn btn-default pull-right" })
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><img src="~/Content/Images/@Model.ImageSrc" class="img-thumbnail" width="200" height="200" /></p>
+                <p><button id="imageFileStart" class="btn btn-default" style="width: 200px">Загрузить фото</button></p>
+                <div style="display: none">
+                    @using (Html.BeginForm("FileUpload", "Movies", FormMethod.Post,
+                                    new { enctype = "multipart/form-data", id="imageFileEnd" }))
+                    {
+                        <input type="hidden" name="MovieID" value="@Model.ID" />
+                        <input type="file" name="file" id="imageFile" style="width: 100%;" />
+                        <input class="form-control" type="submit" value="Upload" />
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>@Html.DisplayNameFor(model => model.Title)</dt>
+                    <dd>@Html.DisplayFor(model => model.Title)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                    <dd>@Html.DisplayFor(model => model.Description)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.ReleaseDate)</dt>
+                    <dd>@Html.DisplayFor(model => model.ReleaseDate)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.Director)</dt>
+                    <dd>@Html.DisplayFor(model => model.Director)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.UserName)</dt>
+                    <dd>@Html.DisplayFor(model => model.UserName)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $("document").ready(function () {
+            $("#imageFile").change(function () {
+                $("#imageFileEnd").submit();
+            });
+            $("#imageFileStart").click(function () {
+                $("#imageFile").click();
+            });
+        });
+    </script>
+}
+

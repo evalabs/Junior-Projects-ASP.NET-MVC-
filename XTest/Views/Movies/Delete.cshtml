@@ -1,0 +1,62 @@
+﻿@model JuniorProjectsTest.Models.Movie
+
+<div class="panel panel-default" style="margin-top: 20px">
+    <div class="panel-heading">
+        <ul class="breadcrumb" style="margin: 0">
+            <li>@Html.ActionLink("Список фильмов", "Index")</li>
+            <li class="active">Удалить</li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <h3>Вы действительно хотите удалить этот фильм?</h3>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ReleaseDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Director)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Director)
+                </dd>
+
+            </dl>
+
+            <hr>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Удалить" class="btn btn-danger">
+                    @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

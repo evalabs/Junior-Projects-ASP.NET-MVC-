@@ -1,0 +1,98 @@
+﻿@model JuniorProjectsTest.Models.Dtos.MovieListDto
+
+<div class="panel panel-default" style="margin-top: 20px">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Список фильмов</h5>
+            </div>
+            <div class="col-md-6">
+                @if (Request.IsAuthenticated)
+                {
+                    <div>
+                        @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-default pull-right" })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].ReleaseDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].Director)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].UserName)
+                    </th>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <th></th>
+                    }
+                </tr>
+
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReleaseDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Director)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <td>
+                                @if (item.UserName == Model.CurrentUser)
+                                {
+                                    <span>
+                                        @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
+                                        @Html.ActionLink("Детали", "Details", new { id = item.ID }) |
+                                        @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
+                                    </span>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @for (var p = 1; p <= Model.PagesCount; p++)
+                    {
+                        if (p == Model.CurrentPage)
+                        {
+                            <li class="page-item active"><a class="page-link" href="?page=@p">@p</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" href="?page=@p">@p</a></li>
+                        }
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
